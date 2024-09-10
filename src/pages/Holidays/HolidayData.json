@@ -1,0 +1,80 @@
+[
+    {
+      "id": 1,
+      "name": "New Year's Day",
+      "date": "2024-01-01",
+      "day": "Monday"
+    },
+    {
+      "id": 2,
+      "name": "Martin Luther King Jr. Day",
+      "date": "2024-01-15",
+      "day": "Monday"
+    },
+    {
+      "id": 3,
+      "name": "Presidents' Day",
+      "date": "2024-02-19",
+      "day": "Monday"
+    },
+    {
+      "id": 4,
+      "name": "Good Friday",
+      "date": "2024-03-29",
+      "day": "Friday"
+    },
+    {
+      "id": 5,
+      "name": "Easter Sunday",
+      "date": "2024-03-31",
+      "day": "Sunday"
+    },
+    {
+      "id": 6,
+      "name": "Memorial Day",
+      "date": "2024-05-27",
+      "day": "Monday"
+    },
+    {
+      "id": 7,
+      "name": "National Independence Day",
+      "date": "2024-06-19",
+      "day": "Wednesday"
+    },
+    {
+      "id": 8,
+      "name": "Independence Day",
+      "date": "2024-07-04",
+      "day": "Thursday"
+    },
+    {
+      "id": 9,
+      "name": "Labor Day",
+      "date": "2024-09-02",
+      "day": "Monday"
+    },
+    {
+      "id": 10,
+      "name": "Columbus Day",
+      "date": "2024-10-14",
+      "day": "Monday"
+    },
+    {
+      "id": 11,
+      "name": "Veterans Day",
+      "date": "2024-11-11",
+      "day": "Monday"
+    },
+    {
+      "id": 12,
+      "name": "Thanksgiving Day",
+      "date": "2024-11-28",
+      "day": "Thursday"
+    },
+    {
+      "id": 13,
+      "name": "Christmas Day",
+      "date": "2024-12-25",
+      "day": "Wednesday"
+    }
+  ]

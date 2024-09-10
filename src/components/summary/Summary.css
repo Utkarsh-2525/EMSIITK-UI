@@ -1,0 +1,71 @@
+
+h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+.data{
+    padding: 20px;
+    /*width: 200px;*/
+    text-align: center;
+    position: relative;
+    display: flex;
+    /*flex-wrap: wrap;*/
+    gap: 15px;
+}
+.todo-list-container {
+    flex: 1; /* Take up remaining space */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width/height calculation */
+    align-items: inherit;
+    justify-content: right;
+    text-align: right;
+}
+.chart{
+    display: inline-block;
+}
+.card {
+    flex: 1 1 200px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-width: 1200px;
+    padding: 20px;
+    color: white;
+    position: relative;
+    text-align: left;
+}
+.card .title {
+    font-size: 20px;
+}
+
+.card .value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.card .change {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.card .icon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+    transform: translateY(-50%);
+}

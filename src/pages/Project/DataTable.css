@@ -1,0 +1,105 @@
+.container {
+    display: flex;
+    justify-content: center; /* Horizontally center the table */
+    align-items: center;     /* Vertically center the table */
+    min-height: 100vh;       /* Full-height container */
+    flex-direction: column;  /* Stack items vertically */
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.table-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+}
+
+.project-table {
+    width: 80%;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 300px; /* Adjust as needed to prevent collapsing */
+}
+
+.project-table tbody tr {
+    background-color: #f8f9fa; /* Light gray background for rows */
+    height: 60px; /* Ensure a minimum height for each row */
+}
+
+.project-table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+}
+
+/* Adjustments for table content */
+.project-table th, .project-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease-in-out;
+    vertical-align: middle; /* Align text vertically in the middle */
+}
+
+/* Header style */
+.project-table th {
+    background-color: #007BFF;  /* Primary color (blue) */
+    color: white;               /* White text */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    border: none; /* No border for cleaner look */
+}
+
+/* Row colors */
+.project-table tbody tr {
+    background-color: #f8f9fa; /* Light gray background for rows */
+    min-height: 200px;
+}
+
+.project-table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+}
+
+/* Hover effect for rows */
+.project-table tbody tr:hover {
+    background-color: #d1ecf1; /* Light blue background on hover */
+    cursor: pointer;
+}
+
+/* Status box styles */
+.project-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px; /* Minimum width for consistent box size */
+}
+
+/* Status color classes */
+.status-completed {
+    background-color: #28a745; /* Green for completed */
+}
+
+.status-in-progress {
+    background-color: #f11c1c; /* Yellow for in-progress */
+}
+
+.status-on-hold {
+    background-color: #fa851f; /* Red for on-hold */
+}
+
+@media (max-width: 768px) {
+    .project-table {
+        width: 100%;
+    }
+}
