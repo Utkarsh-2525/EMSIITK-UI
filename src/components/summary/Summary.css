@@ -11,8 +11,21 @@ p {
     font-weight: bold;
     color: #333;
 }
+
+.card {
+    position: relative;
+    width: 250px;;
+    padding: 15px; /* Slightly reduce padding */
+    margin: 5px; /* Reduce margin to decrease space between cards */
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .data{
+    justify-content: flex-start; /* Align cards closer to the left */
+    flex-wrap: wrap;
     padding: 20px;
+    margin: 0 10px;
     /*width: 200px;*/
     text-align: center;
     position: relative;
@@ -68,4 +81,42 @@ p {
     height: 60px;
     opacity: 0.2;
     transform: translateY(-50%);
+}
+.summary-container {
+    transition: margin-left 0.3s ease;
+    /*background-image: url("../../assets/images/virtual labs.png");*/
+}
+
+/*.with-sidebar {*/
+/*    margin-left: 100px; !* Adjust according to the sidebar's open width *!*/
+/*}*/
+
+/*.without-sidebar {*/
+/*    margin-left: 70px; !* Adjust according to the sidebar's collapsed width *!*/
+/*}*/
+
+.data {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    width: 250px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 24px;
+}
+
+.todo-list-container {
+    margin-top: 30px;
 }

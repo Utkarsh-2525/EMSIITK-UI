@@ -1,25 +1,37 @@
 @use "../../scss/abstracts" as *;
 @use "sass:math";
 
+$sidebarOpenWidth: 235px; // Full width of the sidebar when open
+$sidebarCollapsedWidth: 50px; // Collapsed width of the sidebar
+
 .sidebar {
   @include flex(stretch, center);
   flex-direction: column;
   background-color: var(--bgc);
   color: var(--text-color) !important;
-  // border: 1px solid blue;
-  width: $sideBarOpenWidth;
+  width: $sidebarOpenWidth;
   height: 100vh;
   position: fixed;
   top: 0;
-  transition: all 0.5s ease-in-out;
+  left: 0;
+  transition: width 0.5s ease, margin-left 0.5s ease;
   z-index: 200;
   overflow-y: auto;
   overflow-x: hidden;
 
+  // Sidebar when collapsed
   &.sidebar_close {
-    width: 50px;
+    width: $sidebarCollapsedWidth; // Sidebar collapsed width
     @include tablet {
       width: 100%;
+    }
+
+    // Minimized logo for the collapsed state
+    &__logo img {
+      --size: 2.5rem; // New size for the logo when sidebar is collapsed
+      width: var(--size);
+      height: var(--size);
+      transition: width 0.3s ease, height 0.3s ease;
     }
   }
 
@@ -31,20 +43,20 @@
   }
 
   &__logo {
-    // @include flex();
-    // width: $sideBarLogoHeight;
     text-align: center;
-    padding: 0 12px 2rem;
+    padding: 1rem;
 
     img {
-      --size: 7.5rem;
+      --size: 7.5rem; // Default size of the logo
       width: var(--size);
       height: var(--size);
+      transition: width 0.3s ease, height 0.3s ease;
     }
 
     @include tablet {
       padding-top: 1rem;
     }
+
     @include mobile {
       padding-top: 0.5rem;
     }
@@ -93,10 +105,61 @@
           height: $smallIconSize;
         }
       }
+
       &__txt {
         white-space: nowrap;
       }
     }
+
+    // Submenu Styles
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 60px; // Indent submenu items
+
+      &.submenu_open {
+        max-height: 200px; // Adjust based on submenu content
+        display: block;
+      }
+
+      .sidebar__submenu__item {
+        padding: 5px 0;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: var(--primaryColor);
+        }
+      }
+    }
+
+    // Arrow for submenu
+    .arrow {
+      transition: transform 0.3s ease;
+      margin-left: auto; // Ensures it stays at the right
+    }
+
+    .arrow.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Main content layout adjustment when sidebar is open or closed
+.main-content {
+  margin-left: $sidebarOpenWidth; // Push content to the right when sidebar is open
+  transition: margin-left 0.5s ease;
+
+  // Adjust content for collapsed sidebar
+  .sidebar_close + & {
+    margin-left: $sidebarCollapsedWidth; // Push content less for collapsed sidebar
+  }
+
+  // Responsive adjustments for smaller screens
+  @include tablet {
+    margin-left: 0; // No left margin on small screens
   }
 }
 
@@ -107,37 +170,84 @@
 html[dir="rtl"] {
   .sidebar {
     &__menu {
+      @include flex(stretch, flex-start);
+      flex-direction: column;
+      flex-grow: 1;
+
       &__item {
-        padding-left: 0;
-        // padding-right: 16px;
-        // font-weight: 500;
-        font-size: 18px;
-        // margin-bottom: 1.5rem;
+        @include flex(center, flex-start);
+        position: relative;
+        margin-bottom: 2rem;
+        padding-left: 16px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          color: var(--primaryColor);
+        }
+
         &.active {
-          padding-right: 4px;
           font-weight: 700;
+          color: var(--primaryColor);
+          padding-left: 20px;
+
           &::before {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-            right: 0;
+            content: "";
+            width: 4px;
+            height: 100%;
+            background-color: var(--primaryColor);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            position: absolute;
+            left: 0;
+            top: 0;
           }
         }
 
         &__icon {
-          margin-left: 1rem;
+          @include flex(center, center);
+          margin-right: 1rem;
+
+          svg {
+            width: $smallIconSize;
+            height: $smallIconSize;
+          }
+        }
+
+        &__txt {
+          white-space: nowrap;
         }
       }
-    }
-    &.sidebar_close .sidebar__logo {
-      direction: ltr;
-      width: 46px;
-      margin-right: 10px;
-      overflow: hidden;
-      @include tablet {
-        direction: rtl;
-        width: auto;
+
+      .submenu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 20px; // Indent submenu items
+
+        &.submenu_open {
+          max-height: 200px;
+        }
+
+        .sidebar__submenu__item {
+          display: block;
+          padding: 10px 0;
+          text-decoration: none;
+          color: var(--text-color);
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: var(--primaryColor);
+          }
+        }
+      }
+
+      .arrow {
+        transition: transform 0.3s ease;
+        margin-left: auto;
+      }
+
+      .arrow.open {
+        transform: rotate(180deg);
       }
     }
   }

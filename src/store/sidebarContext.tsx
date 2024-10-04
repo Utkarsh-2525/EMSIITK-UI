@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 
-type SidebarContextObj = { isOpen: boolean; toggleSidebar: () => void };
+interface SidebarContextType {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
 
-const SidebarContext = React.createContext<SidebarContextObj>({
+const SidebarContext = createContext<SidebarContextType>({
   isOpen: true,
   toggleSidebar: () => {},
 });
 
-export const SidebarContextProvider: React.FC = (props) => {
+export const SidebarProvider: React.FC = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
-  function ToggleSidebar() {
-    setIsOpen((prev) => !prev);
-  }
 
-  const contextValue: SidebarContextObj = {
-    isOpen,
-    toggleSidebar: ToggleSidebar,
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
   };
+
   return (
-    <SidebarContext.Provider value={contextValue}>
-      {props.children}
-    </SidebarContext.Provider>
+      <SidebarContext.Provider value={{ isOpen, toggleSidebar }}>
+        {children}
+      </SidebarContext.Provider>
   );
 };
 
+export const useSidebar = () => useContext(SidebarContext);
 export default SidebarContext;

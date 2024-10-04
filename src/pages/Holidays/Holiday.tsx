@@ -1,6 +1,7 @@
 // src/components/HolidayTable.tsx
 import React, { useEffect, useState } from 'react';
-import './DataTable.css'; // Ensure this path is correct
+import './DataTable.css';
+import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner"; // Ensure this path is correct
 
 const HolidayTable: React.FC = () => {
     // @ts-ignore
@@ -23,7 +24,7 @@ const HolidayTable: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <LoadingSpinner/>;
     }
 
     if (error) {

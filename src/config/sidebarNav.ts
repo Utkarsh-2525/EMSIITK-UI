@@ -6,10 +6,24 @@ const sidebarNav = [
         text: "Dashboard",
     },
     {
-        link: "/employees",
+        link: "",
         section: "Employees",
         icon: "ph:users-bold",
         text: "Employees",
+        submenu:[
+            {
+                link: "/employees/all",
+                text: "All Employees----",
+            },
+            {
+                link: "/employees/active",
+                text: "Active Employees--",
+            },
+            {
+                link: "/employees/inactive",
+                text: "Inactive Employees",
+            }
+        ]
     },
     {
         link: "/projects",
@@ -30,7 +44,7 @@ const sidebarNav = [
     //     text: "Analytics",
     // },
     {
-        link: "/app_pending",
+        link: "/appr_pending",
         section: "Pending Approvals",
         icon: "fluent:approvals-app-24-regular",
         text: "Approvals",

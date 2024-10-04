@@ -1,63 +1,76 @@
-import {Icon} from "@iconify/react";
-import React, {useEffect, useState} from "react";
-import './Summary.css'
-import TodoList from "../ToDo/ToDoComponent";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Icon } from "@iconify/react";
 import ApexChart from "../PieChart/ApexChart";
+import TodoList from "../ToDo/ToDoComponent";
+import { useSidebar } from "../../store/sidebarContext";
+import "./Summary.css";
 
 export const Summary = () => {
+    const API_URL = process.env.REACT_APP_API_URL;
+    const { isOpen } = useSidebar(); // Use sidebar state to adjust layout
 
-    const [totalEmployees, setTotalEmployees] = useState(0);
-    const [totalInterns, setTotalInterns] = useState(0);
+    const [data, setData] = useState({ emp: 0, int: 0, task: 0, pend: 0 });
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    // // url for fetching total employees
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const employeeURL: string = 'http://localhost:8000/api/employees';
-    //         const internURL: string = 'http://localhost:8000/api/interns';
-    //
-    //         const employeeResponseJson = await (await fetch(employeeURL)).json();
-    //         const internResponseJson = await (await fetch(internURL)).json();
-    //         // employee count
-    //         const employeeData = employeeResponseJson._embedded.employees;
-    //         // intern count
-    //         const internData = internResponseJson._embedded.interns;
-    //         setTotalEmployees(employeeResponseJson.page.totalElements);
-    //         setTotalInterns(internResponseJson.page.totalElements);
-    //     }
-    // }, []);
-
+    useEffect(() => {
+        const sendToken = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/Admin/Fetch/Overview`, {
+                    headers: {
+                        Authorization: "Bearer " + sessionStorage.getItem("token"),
+                    },
+                });
+                if (response.data.error === "0") {
+                    setData(response.data.msg);
+                } else {
+                    setError("Error fetching data");
+                }
+                setLoading(false);
+            } catch (err) {
+                setError("Error fetching data");
+                setLoading(false);
+            }
+        };
+        sendToken();
+    }, []);
 
     return (
-        <div className='container'>
+        <div className={`summary-container ${isOpen ? "with-sidebar" : "without-sidebar"}`}>
             <div className="data">
-                <div className="card" style={{background: 'linear-gradient(145deg, #2196f3, #64b5f6)'}}>
+                <div className="card" style={{ background: "linear-gradient(145deg,#64b5f6, #2196f3)" }}>
                     <div className="title">Total Employees</div>
-                    <div className="value">213</div>
-                    <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Employee Icon"
-                         className='icon'/>
+                    <div className="value">{data.emp}</div>
+                    <Icon icon="clarity:employee-group-solid" className="icon" />
                 </div>
-                <div className="card" style={{background: 'linear-gradient(145deg, #8c6cef,#8d3fed)'}}>
+
+                <div className="card" style={{ background: "linear-gradient(145deg, #8c6cef,#8d3fed)" }}>
                     <div className="title">Total Interns</div>
-                    <div className="value">87</div>
-                    <Icon icon="ph:student" className='icon'/>
+                    <div className="value">{data.int}</div>
+                    <Icon icon="ph:student" className="icon" />
                 </div>
-                <div className="card" style={{background: 'linear-gradient(145deg, #59ed38, #08a80f)'}}>
+
+                <div className="card" style={{ background: "linear-gradient(145deg, #59ed38, #08a80f)" }}>
                     <div className="title">Total Projects</div>
-                    <div className="value">257</div>
-                    <Icon icon="bx:windows" className='icon'/>
+                    <div className="value">{data.task}</div>
+                    <Icon icon="bx:windows" className="icon" />
                 </div>
-                <div className="card" style={{background: 'linear-gradient(145deg, #f38e3a, #f65c0a)'}}>
+
+                <div className="card" style={{ background: "linear-gradient(145deg, #f38e3a, #f65c0a)" }}>
                     <div className="title">Pending Requests</div>
-                    <div className="value">45</div>
-                    <Icon icon="fluent-mdl2:task-list" className='icon'/>
+                    <div className="value">{data.pend}</div>
+                    <Icon icon="fluent-mdl2:task-list" className="icon" />
                 </div>
             </div>
-            <div><ApexChart/></div>
+
+            <ApexChart emp={data.emp} int={data.int} task={data.task} pend={data.pend} />
+
             <div className="todo-list-container">
-                <TodoList/>
+                <TodoList />
             </div>
         </div>
     );
-}
+};
 
 export default Summary;

@@ -1,0 +1,101 @@
+/* Container to center the table */
+.container {
+    display: flex;
+    justify-content: center;  /* Horizontally center the table */
+    align-items: center;      /* Vertically center the table */
+    min-height: 100vh;        /* Full-height container */
+    flex-direction: column;   /* Stack elements vertically */
+}
+
+/* Loading and Error Messages */
+.loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ff0000; /* Red color for error */
+    margin: 20px;
+}
+button {
+     padding: 10px 15px;
+     border-radius: 5px;
+     border: none;
+     cursor: pointer;
+     font-size: 1rem;
+ }
+button[type="button"] {
+    background-color: #3d91ef;
+    color: white;
+}
+/* Data Table Styling */
+.data-table {
+    width: 80%;  /* Width of the table */
+    border-spacing: 0;  /* No extra space around cells */
+    border-collapse: separate;  /* Allow rounding of corners */
+    border-radius: 15px;  /* Rounded corners for the entire table */
+    overflow: hidden;  /* Clip content at rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    background-color: #fff;  /* White background */
+}
+
+/* Table Caption Style */
+.table-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    border-radius: 10px 10px 0 0;  /* Rounded top corners */
+}
+
+/* Column widths for specific columns */
+.column-id {
+    width: 200px;
+}
+
+/* Table Header (th) and Cell (td) Styles */
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Header style */
+.data-table th {
+    background-color: #007BFF;  /* Primary blue color */
+    color: white;               /* White text */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    border: none; /* Clean look */
+}
+
+/* Body row styles */
+.data-table tbody tr {
+    background-color: #f8f9fa;  /* Light gray for rows */
+}
+
+/* Alternating row color */
+.data-table tbody tr:nth-child(even) {
+    background-color: #e9ecef;  /* Slightly darker gray for alternating rows */
+}
+
+/* Hover effect on rows */
+.data-table tbody tr:hover {
+    background-color: #d1ecf1;  /* Light blue on hover */
+    cursor: pointer;  /* Pointer cursor on hover */
+}
+
+/* Active row styling */
+.data-table tbody tr:active {
+    background-color: #c3e6cb;  /* Greenish background for active row */
+    color: #155724;             /* Dark green text */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .data-table {
+        width: 100%;  /* Make table full-width on smaller screens */
+    }
+}

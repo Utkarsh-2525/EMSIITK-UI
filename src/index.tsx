@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import {SidebarContextProvider} from "./store/sidebarContext";
 import {LangContextProvider} from "./store/langContext";
+import {SidebarProvider} from "./store/sidebarContext";
 import {ThemeContextProvider} from "./store/themeContext";
 import {LoginContextProvider} from "./store/loginContext";
 import {DevSupport} from "@react-buddy/ide-toolbox";
@@ -12,13 +12,13 @@ ReactDOM.render(
     <LangContextProvider>
         <LoginContextProvider>
             <ThemeContextProvider>
-                <SidebarContextProvider>
+                <SidebarProvider>
                     <DevSupport ComponentPreviews={ComponentPreviews}
                                 useInitialHook={useInitial}
                     >
                         <App/>
                     </DevSupport>
-                </SidebarContextProvider>
+                </SidebarProvider>
             </ThemeContextProvider>
         </LoginContextProvider>
     </LangContextProvider>,
