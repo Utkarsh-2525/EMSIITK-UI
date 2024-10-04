@@ -93,10 +93,6 @@ const DataTable: React.FC = () => {
         return <div className="error">{error}</div>;
     }
 
-    function handleAccess(id: number) {
-        
-    }
-
     return (
         <div className="container">
             <table className="data-table">
@@ -125,7 +121,7 @@ const DataTable: React.FC = () => {
                             <button onClick={() => handleEditClick(employee.id)}>
                                 <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px" style={{color: 'black'}}/>
                             </button>
-                            <button onClick={() => handleAccess(employee.id)}>
+                            <button onClick={() => handleEditClick(employee.id)}>
                                 <Icon icon="lets-icons:remove-fill" width="27px" height="27px"  style={{color: 'red'}} />
                             </button>
                         </td>

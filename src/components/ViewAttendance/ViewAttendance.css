@@ -1,0 +1,110 @@
+/* DataTable.css */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Keep the table aligned to the top */
+    min-height: 100vh;
+    flex-direction: column;
+    padding-top: 20px; /* Optional padding */
+    margin-left: 0px; /* Adjust this value according to the sidebar's width */
+    transition: margin-left 0.5s ease; /* Smooth transition when sidebar opens or closes */
+}
+
+.sidebar-collapsed ~ .container {
+    margin-left: 70px; /* Adjust this value according to the collapsed sidebar's width */
+}
+
+.data-table {
+    width: calc(100% - 250px); /* Adjust width based on sidebar width */
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: width 0.5s ease; /* Smooth transition when sidebar opens or closes */
+}
+
+.sidebar-collapsed ~ .data-table {
+    width: calc(100% - 70px); /* Adjust based on the collapsed sidebar width */
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+}
+
+.column-id {
+    width: 200px; /* Custom width */
+}
+
+.loading, .error {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.data-table {
+    width: 80%;
+    border-spacing: 0; /* Ensure no extra space around cells */
+    border-collapse: separate; /* Allow rounding of corners */
+    border-radius: 15px; /* Rounded corners for the entire table */
+    overflow: hidden; /* Ensure contents are clipped at rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.table-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Header style */
+.data-table th {
+    background-color: #007BFF; /* Primary color (blue) */
+    color: white; /* White text */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    border: none; /* No border for cleaner look */
+}
+
+/* Row colors */
+.data-table tbody tr {
+    background-color: #f8f9fa; /* Light gray background for rows */
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+}
+
+/* Hover effect for rows */
+.data-table tbody tr:hover {
+    background-color: #d1ecf1; /* Light blue background on hover */
+    cursor: pointer;
+}
+
+/* Highlight selected row (optional feature) */
+.data-table tbody tr:active {
+    background-color: #c3e6cb; /* Greenish background for active row */
+    color: #155724; /* Dark green text */
+}
+
+@media (max-width: 768px) {
+    .data-table {
+        width: 100%;
+    }
+}

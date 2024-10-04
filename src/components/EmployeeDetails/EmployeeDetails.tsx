@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './EmployeeDetails.css';
-import loadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
-import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner"; // Custom CSS for card layout and form styling
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
 
 interface Employee {
     id: number;
@@ -26,7 +25,7 @@ const EmployeeDetails: React.FC = () => {
     const [employee, setEmployee] = useState<Employee | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [isEditing, setIsEditing] = useState<boolean>(false); // Track edit mode
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     const [formData, setFormData] = useState<Employee | null>(null);
 
     useEffect(() => {
