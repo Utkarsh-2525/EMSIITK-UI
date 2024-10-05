@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useWindowSize } from "usehooks-ts";
-import SearchBox from "./searchBox/SearchBox";
 import TopNavRightBox from "./rightBox/TopNavRightBox";
 import SidebarContext from "../../store/sidebarContext";
 
@@ -34,15 +33,8 @@ function TopNav() {
             <Icon icon="eva:close-fill" width="24" />
           </div>
         </div>
-        <div className={classes.search_desktop_wrapper}>
-          <SearchBox />
-        </div>
       </div>
       <TopNavRightBox />
-      <br />
-      <div className={classes.search_tablet_wrapper}>
-        <SearchBox />
-      </div>
     </div>
   );
 }

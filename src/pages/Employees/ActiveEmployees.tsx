@@ -4,7 +4,7 @@ import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
 import {Icon} from "@iconify/react";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 interface Employee {
     id: number;
@@ -43,8 +43,7 @@ const DataTable: React.FC = () => {
             }).then(response => {
                 setEmployees(response.data.msg);
                 setLoading(false);
-            }).
-            catch(err => {
+            }).catch(err => {
                 setError(err);
                 setLoading(false);
             })
@@ -65,75 +64,94 @@ const DataTable: React.FC = () => {
                 }
             );
             console.log(response.data);
+            console.log(sessionStorage.getItem('token'));
             // navigate(`/employee/${employeeId}`);
-            navigate('/employee/details', { state: { employeeId } });
+            navigate('/employee/details', {state: {employeeId}});
         } catch (error) {
             console.error('There was an error!', error);
         }
     };
 
+    const RevokeAccess = async (employeeId: number) => {
+        try {
+            const response = await axios.post(`${API_URL}/Admin/Auth/REVOKE_ACCESS`,
+                {employeeId},
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            console.log(response.data);
+            console.log(sessionStorage.getItem('token'));
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
     // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
     //@ts-ignore
-    const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
 
+    const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
     // Change page
+
     const totalPages = Math.ceil(employees.length / ITEMS_PER_PAGE);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
-
     if (loading) {
         return (<LoadingSpinner/>);
-    }
 
+    }
     if (error) {
         return <div className="error">{error}</div>;
+
     }
 
-    return (
-        <div className="container">
-            <table className="data-table">
-                <caption className='table-title'>Active Employees</caption>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>DOB</th>
-                    <th>Designation</th>
-                    <th>Salary</th>
-                    <th className='column-id'>Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                {employees.map((employee) => (
-                    <tr key={employee.id}>
-                        <td>{employee.id}</td>
-                        <td>{employee.name}</td>
-                        <td>{employee.email}</td>
-                        <td>{new Date(employee.dob).toLocaleDateString()}</td>
-                        <td>{employee.designation}</td>
-                        <td>{employee.salary}</td>
-                        <td>
-                            <button onClick={() => handleEditClick(employee.id)}>
-                                <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px" style={{color: 'black'}}/>
-                            </button>
-                            <button onClick={() => handleEditClick(employee.id)}>
-                                <Icon icon="lets-icons:remove-fill" width="27px" height="27px"  style={{color: 'red'}} />
-                            </button>
-                        </td>
+        return (
+            <div className="container">
+                <table className="data-table">
+                    <caption className='table-title'>Active Employees</caption>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>DOB</th>
+                        <th>Designation</th>
+                        <th className='column-id'>Edit</th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    {employees.map((employee) => (
+                        <tr key={employee.id}>
+                            <td>{employee.id}</td>
+                            <td>{employee.name}</td>
+                            <td>{employee.email}</td>
+                            <td>{new Date(employee.dob).toLocaleDateString()}</td>
+                            <td>{employee.designation}</td>
+                            <td>
+                                <button onClick={() => handleEditClick(employee.id)}>
+                                    <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px"
+                                          style={{color: 'black'}}/>
+                                </button>
+                                <button onClick={() => RevokeAccess(employee.id)}>
+                                    <Icon icon="lets-icons:remove-fill" width="27px" height="27px"
+                                          style={{color: 'red'}}/>
+                                </button>
+                            </td>
+                        </tr>
                     ))}
-                </tbody>
-            </table>
-            <Pagination currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}/>
-        </div>
-    );
-};
+                    </tbody>
+                </table>
+                <Pagination currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}/>
+            </div>
+        );
+    };
 
-export default DataTable;
+    export default DataTable;

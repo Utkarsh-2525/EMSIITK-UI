@@ -41,8 +41,7 @@ const DataTable: React.FC = () => {
             }).then(response => {
                 setEmployees(response.data.msg);
                 setLoading(false);
-            }).
-            catch(err => {
+            }).catch(err => {
                 setError(err);
                 setLoading(false);
             })
@@ -95,10 +94,10 @@ const DataTable: React.FC = () => {
                         <td>{new Date(employee.dob).toLocaleDateString()}</td>
                         <td>{employee.designation}</td>
                         <td>{employee.salary}</td>
-                        <td>{
-                            (employee.hire_status) ?
-                                "Active" : "Inactive"
-                        }</td>
+                        <td>
+                            <span style={{color: employee.hire_status ? 'green' : 'red'}}>
+                    {employee.hire_status ? "Active" : "Inactive"}</span>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
