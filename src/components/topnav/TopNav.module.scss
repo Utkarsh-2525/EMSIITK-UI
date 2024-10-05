@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   padding-bottom: 1rem;
   border-bottom: 3px solid gainsboro;
-  margin-bottom: 4rem;
   &_left {
     @include flex(center, flex-start);
     flex-wrap: wrap;

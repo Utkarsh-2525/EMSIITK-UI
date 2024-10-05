@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import LoadingSpinner from "./components/UI/loadingSpinner/LoadingSpinner";
@@ -22,22 +21,31 @@ const Holidays = React.lazy(() => import("./pages/Holidays/Holiday"));
 const Login = React.lazy(() => import("./pages/Login"));
 
 function App() {
-    // Initialize token from sessionStorage to ensure it's available on page refresh
     const [token, setToken] = useState<string | null>(sessionStorage.getItem("token"));
 
     useEffect(() => {
-        // Optional: This useEffect can handle updates if token is changed after login
-        const storedToken = sessionStorage.getItem("token");
-        setToken(storedToken);
+        const handleStorageChange = () => {
+            const storedToken = sessionStorage.getItem("token");
+            setToken(storedToken);
+        };
+
+        // Listen to the storage event
+        window.addEventListener("storage", handleStorageChange);
+
+        // Update token when the app is initialized
+        handleStorageChange();
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, []);
 
     return (
         <BrowserRouter>
             <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
-
                     <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp/>} />
+                    <Route path="/signup" element={<SignUp />} />
 
                     {token ? (
                         <Route element={<AuthLayout />}>
@@ -48,19 +56,17 @@ function App() {
                                 <Route path="employees/inactive" element={<InactiveEmployees />} />
                                 <Route path="employee/:id" element={<EditEmployee />} />
                                 <Route path="projects" element={<Projects />} />
-                                <Route path="/employee/details" element={<EmployeeDetails/>} />
-                                <Route path="/employee/attendance/:employeeId" element={<ViewAttendance/>} />
+                                <Route path="/employee/details" element={<EmployeeDetails />} />
+                                <Route path="/employee/attendance/:employeeId" element={<ViewAttendance />} />
                                 <Route path="/EMP_EDIT_DETAILS" element={<EditEmployeeDetails />} />
                                 <Route path="attendance" element={<Attendance />} />
                                 <Route path="holidays" element={<Holidays />} />
-                                <Route path="/appr_pending" element={<PendingApproval/>} />
+                                <Route path="/appr_pending" element={<PendingApproval />} />
                             </Route>
                         </Route>
                     ) : (
                         <Route path="*" element={<Navigate to="/login" />} />
                     )}
-
-                    {/*<Route path="*" element={<NotFound />} />*/}
                 </Routes>
             </Suspense>
         </BrowserRouter>
