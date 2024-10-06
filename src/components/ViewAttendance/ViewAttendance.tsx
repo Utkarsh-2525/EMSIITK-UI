@@ -78,19 +78,19 @@ const AttendanceTable: React.FC = () => {
                     <div className="card" style={{background: "linear-gradient(145deg,#64b5f6, #2196f3)"}}>
                         <div className="title">Total Present</div>
                         <div className="value">{totalPresent}</div>
-                        <Icon icon="clarity:employee-group-solid" className="icon"/>
+                        <Icon icon="ic:twotone-work" className="icon"/>
                     </div>
 
                     <div className="card" style={{background: "linear-gradient(145deg, #8c6cef,#8d3fed)"}}>
                         <div className="title">Total Absent</div>
                         <div className="value">{totalAbsent}</div>
-                        <Icon icon="ph:student" className="icon"/>
+                        <Icon icon="subway:error" className="icon"/>
                     </div>
 
                     <div className="card" style={{background: "linear-gradient(145deg, #59ed38, #08a80f)"}}>
                         <div className="title">Total Leaves</div>
                         <div className="value">{totalLeaves}</div>
-                        <Icon icon="bx:windows" className="icon"/>
+                        <Icon icon="pepicons-pencil:leave-circle-filled" className="icon"/>
                     </div>
                 </div>
                 </div>

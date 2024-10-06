@@ -18,10 +18,7 @@ function TopNav() {
   return (
     <div className={classes.topNav}>
       <div className={classes.topNav_left}>
-        <div
-          className={classes.topNav_left_menu_icon}
-          onClick={openSidebarHandler}
-        >
+        <div className={classes.topNav_left_menu_icon} onClick={openSidebarHandler}>
           <Icon icon="ci:menu-alt-03" width="24" />
         </div>
         <div className={classes.topNav_left_menu} onClick={openSidebarHandler}>
@@ -34,6 +31,7 @@ function TopNav() {
           </div>
         </div>
       </div>
+      <Icon icon="mingcute:notification-line" style={{color: 'black', height: '30px', width: '30px', alignItems:'flex-end'}}/>
       <TopNavRightBox />
     </div>
   );
