@@ -72,10 +72,10 @@ const DataTable: React.FC = () => {
         }
     };
 
-    const RevokeAccess = async (employeeId: number) => {
+    const RevokeAccess = async (id: number) => {
         try {
             const response = await axios.post(`${API_URL}/Admin/Auth/REVOKE_ACCESS`,
-                {employeeId},
+                {id},
                 {
                     headers: {
                         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
@@ -120,7 +120,6 @@ const DataTable: React.FC = () => {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>DOB</th>
                         <th>Designation</th>
                         <th className='column-id'>Edit</th>
                     </tr>
@@ -131,7 +130,7 @@ const DataTable: React.FC = () => {
                             <td>{employee.id}</td>
                             <td>{employee.name}</td>
                             <td>{employee.email}</td>
-                            <td>{new Date(employee.dob).toLocaleDateString()}</td>
+                            {/*<td>{new Date(employee.dob).toLocaleDateString()}</td>*/}
                             <td>{employee.designation}</td>
                             <td>
                                 <button onClick={() => handleEditClick(employee.id)}>

@@ -5,6 +5,7 @@ import ApexChart from "../PieChart/ApexChart";
 import TodoList from "../ToDo/ToDoComponent";
 import { useSidebar } from "../../store/sidebarContext";
 import "./Summary.css";
+import {Link} from "react-router-dom";
 
 export const Summary = () => {
     const API_URL = process.env.REACT_APP_API_URL;
@@ -58,7 +59,8 @@ export const Summary = () => {
                 </div>
 
                 <div className="card" style={{ background: "linear-gradient(145deg, #f38e3a, #f65c0a)" }}>
-                    <div className="title">Pending Requests</div>
+                    <div className="title">
+                        <Link to='/appr_pending'>Pending Requests</Link></div>
                     <div className="value">{data.pend}</div>
                     <Icon icon="fluent-mdl2:task-list" className="icon" />
                 </div>

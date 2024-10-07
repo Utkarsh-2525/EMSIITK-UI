@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 
 interface Employee {
     id: number;
@@ -31,30 +31,57 @@ const DataTable: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const ITEMS_PER_PAGE = 15;
+    const API_URL = process.env.REACT_APP_API_URL;
 
-    useEffect(() => {
-        const sendToken = async () => {
-            let API_URL = process.env.REACT_APP_API_URL;
-            axios.get(`${API_URL}/Admin/Fetch/EMP_PENDING`, {
+    // Fetch employee data from API
+    const fetchEmployees = async () => {
+        setLoading(false);
+        try {
+            const response = await axios.get(`${API_URL}/Admin/Fetch/EMP_PENDING`, {
                 headers: {
                     Authorization: 'Bearer ' + sessionStorage.getItem('token')
                 },
-            }).then(response => {
-                setEmployees(response.data.msg);
-                setLoading(false);
-            }).
-            catch(err => {
-                setError(err);
-                setLoading(false);
-            })
+            });
+            setEmployees(response.data.msg);
+            setError(null);  // Reset the error on success
+        } catch (err) {
+            setError('Error fetching employee data');
+        } finally {
+            setLoading(false);
         }
-        sendToken();
+    };
+
+    useEffect(() => {
+        fetchEmployees();
     }, []);
+
+    const ChangeStatus = async (id: number) => {
+        try {
+            const response = await axios.post(`${API_URL}/Admin/Routes/SET_HIRE_STATUS`,
+                { id },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            // If the response contains msg === 0, refresh the data
+            if (response.data.msg === "Status Updated Successfully" && response.data.error === "0") {
+                // Re-fetch employee data to refresh the table without page reload
+                await fetchEmployees();
+            }
+
+            console.log('API call response:', response.data);
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
 
     // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-    //@ts-ignore
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
 
     // Change page
@@ -65,7 +92,7 @@ const DataTable: React.FC = () => {
     };
 
     if (loading) {
-        return (<LoadingSpinner/>);
+        return (<LoadingSpinner />);
     }
 
     if (error) {
@@ -75,7 +102,7 @@ const DataTable: React.FC = () => {
     return (
         <div className="container">
             <table className="data-table">
-                <caption className='table-title'>Inactive Employees</caption>
+                <caption className='table-title'>Pending Approvals</caption>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -85,25 +112,25 @@ const DataTable: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {employees.map((employee) => (
+                {currentItems.map((employee) => (
                     <tr key={employee.id}>
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
-                        {/*<td>{new Date(employee.dob).toLocaleDateString()}</td>*/}
-                        {/*<td>{employee.designation}</td>*/}
                         <td>
-                            <Icon icon="dashicons:yes" width="30px" height="30px"
-                                  style={{color: 'green'}}/>
-                            <Icon icon="charm:cross" width="30px" height="30px" style={{color: 'red'}}/>
+                            <button onClick={() => ChangeStatus(employee.id)}>
+                                <Icon icon="dashicons:yes" width="27px" height="27px" style={{ color: 'green' }} />
+                            </button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}/>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 };

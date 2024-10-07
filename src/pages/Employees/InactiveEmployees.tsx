@@ -34,7 +34,7 @@ const DataTable: React.FC = () => {
     useEffect(() => {
         const sendToken = async () => {
             let API_URL = process.env.REACT_APP_API_URL;
-            axios.get(`${API_URL}/Admin/Fetch/EMP_PENDING`, {
+            axios.get(`${API_URL}/Admin/Fetch/EMP_INACTIVE`, {
                 headers: {
                     Authorization: 'Bearer ' + sessionStorage.getItem('token')
                 },

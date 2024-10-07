@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
@@ -30,19 +30,21 @@ const DataTable: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const ITEMS_PER_PAGE = 15;
+    const API_URL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const sendToken = async () => {
-            let API_URL = process.env.REACT_APP_API_URL;
             axios.get(`${API_URL}/Admin/Fetch/ALL_EMP`, {
                 headers: {
                     Authorization: 'Bearer ' + sessionStorage.getItem('token')
                 },
             }).then(response => {
-                setEmployees(response.data.msg);
+                // Check if response.data.msg is an array, otherwise fallback to empty array
+                const employeeData = Array.isArray(response.data.msg) ? response.data.msg : [];
+                setEmployees(employeeData);
                 setLoading(false);
             }).catch(err => {
-                setError(err);
+                setError(err.message || 'An error occurred');
                 setLoading(false);
             })
         }
@@ -52,7 +54,6 @@ const DataTable: React.FC = () => {
     // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-    //@ts-ignore
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
 
     // Change page
@@ -63,7 +64,7 @@ const DataTable: React.FC = () => {
     };
 
     if (loading) {
-        return (<LoadingSpinner/>);
+        return (<LoadingSpinner />);
     }
 
     if (error) {
@@ -86,7 +87,7 @@ const DataTable: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {employees.map((employee) => (
+                {currentItems.map((employee) => (
                     <tr key={employee.id}>
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
@@ -95,16 +96,19 @@ const DataTable: React.FC = () => {
                         <td>{employee.designation}</td>
                         <td>{employee.salary}</td>
                         <td>
-                            <span style={{color: employee.hire_status ? 'green' : 'red'}}>
-                    {employee.hire_status ? "Active" : "Inactive"}</span>
+                                <span style={{ color: employee.hire_status ? 'green' : 'red' }}>
+                                    {employee.hire_status ? "Active" : "Inactive"}
+                                </span>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}/>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 };
