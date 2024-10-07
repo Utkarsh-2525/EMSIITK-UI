@@ -10,20 +10,7 @@ interface Employee {
     id: number;
     name: string;
     email: string;
-    password: string;
-    apply_date: string;
-    dob: number;
     designation: string;
-    salary: number;
-    total_leave: number;
-    approved_leave: number;
-    bank_name: string;
-    bank_acc_no: string;
-    ifsc_code: string;
-    hire_status: string;
-    email_verify: string;
-    photo: string;
-    aadhar: string;
 }
 
 const DataTable: React.FC = () => {
@@ -34,123 +21,123 @@ const DataTable: React.FC = () => {
     const ITEMS_PER_PAGE = 15;
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
-    useEffect(() => {
-        const sendToken = async () => {
-            axios.get(`${API_URL}/Admin/Fetch/EMP_HIRED`, {
+
+    // Function to fetch employees
+    const fetchEmployees = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`${API_URL}/Admin/Fetch/EMP_HIRED`, {
                 headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
                 },
-            }).then(response => {
-                setEmployees(response.data.msg);
-                setLoading(false);
-            }).catch(err => {
-                setError(err);
-                setLoading(false);
-            })
+            });
+            setEmployees(response.data.msg);
+            setLoading(false);
+        } catch (error) {
+            console.error('There was an error!', error);
+            setLoading(false);
         }
-        sendToken();
+    };
+
+    // Fetch employees when component mounts
+    useEffect(() => {
+        fetchEmployees();
     }, []);
 
+    // Handle edit click
     const handleEditClick = async (employeeId: number) => {
         try {
             const response = await axios.post(
                 `${API_URL}/Admin/Fetch/EMP_DETAILS`,
-                {id: employeeId},
+                { id: employeeId },
                 {
                     headers: {
                         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-                        'Content-Type': 'application/json'
-                    }
+                        'Content-Type': 'application/json',
+                    },
                 }
             );
             console.log(response.data);
-            console.log(sessionStorage.getItem('token'));
-            // navigate(`/employee/${employeeId}`);
-            navigate('/employee/details', {state: {employeeId}});
+            navigate('/employee/details', { state: { employeeId } });
         } catch (error) {
             console.error('There was an error!', error);
         }
     };
 
+    // Revoke access and refresh employee list
     const RevokeAccess = async (id: number) => {
         try {
             const response = await axios.post(`${API_URL}/Admin/Auth/REVOKE_ACCESS`,
-                {id},
+                { id },
                 {
                     headers: {
                         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     }
                 }
             );
             console.log(response.data);
-            console.log(sessionStorage.getItem('token'));
+            // After revoking access, refresh the employee list
+            fetchEmployees(); // Call fetchEmployees again to reload the data
         } catch (error) {
             console.error('There was an error!', error);
         }
     };
-    // Get current items for the page
+
+    // Pagination logic
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-    //@ts-ignore
-
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
-    // Change page
 
     const totalPages = Math.ceil(employees.length / ITEMS_PER_PAGE);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
-    if (loading) {
-        return (<LoadingSpinner/>);
 
+    if (loading) {
+        return <LoadingSpinner />;
     }
+
     if (error) {
         return <div className="error">{error}</div>;
-
     }
 
-        return (
-            <div className="container">
-                <table className="data-table">
-                    <caption className='table-title'>Active Employees</caption>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Designation</th>
-                        <th className='column-id'>Edit</th>
+    return (
+        <div className="container">
+            <table className="data-table">
+                <caption className="table-title">Active Employees</caption>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Designation</th>
+                    <th className="column-id">Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {currentItems.map((employee) => (
+                    <tr key={employee.id}>
+                        <td>{employee.id}</td>
+                        <td>{employee.name}</td>
+                        <td>{employee.email}</td>
+                        <td>{employee.designation}</td>
+                        <td>
+                            <button onClick={() => handleEditClick(employee.id)}>
+                                <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px" style={{ color: 'black' }} />
+                            </button>
+                            <button onClick={() => RevokeAccess(employee.id)}>
+                                <Icon icon="lets-icons:remove-fill" width="27px" height="27px" style={{ color: 'red' }} />
+                            </button>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {employees.map((employee) => (
-                        <tr key={employee.id}>
-                            <td>{employee.id}</td>
-                            <td>{employee.name}</td>
-                            <td>{employee.email}</td>
-                            {/*<td>{new Date(employee.dob).toLocaleDateString()}</td>*/}
-                            <td>{employee.designation}</td>
-                            <td>
-                                <button onClick={() => handleEditClick(employee.id)}>
-                                    <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px"
-                                          style={{color: 'black'}}/>
-                                </button>
-                                <button onClick={() => RevokeAccess(employee.id)}>
-                                    <Icon icon="lets-icons:remove-fill" width="27px" height="27px"
-                                          style={{color: 'red'}}/>
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                <Pagination currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}/>
-            </div>
-        );
-    };
+                ))}
+                </tbody>
+            </table>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+        </div>
+    );
+};
 
-    export default DataTable;
+export default DataTable;

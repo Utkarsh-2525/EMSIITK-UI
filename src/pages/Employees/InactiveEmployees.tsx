@@ -8,20 +8,8 @@ interface Employee {
     id: number;
     name: string;
     email: string;
-    password: string;
-    apply_date: string;
     dob: number;
     designation: string;
-    salary: number;
-    total_leave: number;
-    approved_leave: number;
-    bank_name: string;
-    bank_acc_no: string;
-    ifsc_code: string;
-    hire_status: string;
-    email_verify: string;
-    photo: string;
-    aadhar: string;
 }
 
 const DataTable: React.FC = () => {
@@ -80,11 +68,7 @@ const DataTable: React.FC = () => {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>DOB</th>
                     <th>Designation</th>
-                    <th>Salary</th>
-                    <th>Total Leave</th>
-                    <th>Approved Leave</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,11 +77,7 @@ const DataTable: React.FC = () => {
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
-                        <td>{new Date(employee.dob).toLocaleDateString()}</td>
                         <td>{employee.designation}</td>
-                        <td>{employee.salary}</td>
-                        <td>{employee.total_leave}</td>
-                        <td>{employee.approved_leave}</td>
                     </tr>
                 ))}
                 </tbody>

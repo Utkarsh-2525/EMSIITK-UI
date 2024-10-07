@@ -13,16 +13,6 @@ interface Employee {
     apply_date: string;
     dob: number;
     designation: string;
-    salary: number;
-    total_leave: number;
-    approved_leave: number;
-    bank_name: string;
-    bank_acc_no: string;
-    ifsc_code: string;
-    hire_status: string;
-    email_verify: string;
-    photo: string;
-    aadhar: string;
 }
 
 const DataTable: React.FC = () => {
@@ -73,7 +63,7 @@ const DataTable: React.FC = () => {
                 await fetchEmployees();
             }
 
-            console.log('API call response:', response.data);
+            // console.log('API call response:', response.data);
         } catch (error) {
             console.error('There was an error!', error);
         }
