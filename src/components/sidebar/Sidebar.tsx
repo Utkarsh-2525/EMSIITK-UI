@@ -10,24 +10,23 @@ import classes from "./Sidebar.module.scss";
 
 const Sidebar = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [submenuOpen, setSubmenuOpen] = useState<number | null>(null); // Track open submenu
-    const { width } = useWindowSize(); // Get window width for responsive handling
+    const [submenuOpen, setSubmenuOpen] = useState<number | null>(null);
+    const { width } = useWindowSize();
     const location = useLocation();
-    const sidebarCtx = useContext(SidebarContext); // Context to control sidebar state
-    const loginCtx = useContext(LoginContext); // Context for login/logout state
+    const sidebarCtx = useContext(SidebarContext);
+    const loginCtx = useContext(LoginContext);
 
-    // Toggle the sidebar based on screen size
     const openSidebarHandler = () => {
         if (width <= 768) {
             document.body.classList.toggle("sidebar__open");
         } else {
-            sidebarCtx.toggleSidebar(); // Use the context to control open/close
+            sidebarCtx.toggleSidebar();
         }
     };
 
     // Handle logout and remove token
     const logoutHandler = () => {
-        sessionStorage.removeItem("token"); // Remove token from sessionStorage
+        sessionStorage.removeItem("token");
         loginCtx.toggleLogin();
     };
 
@@ -37,9 +36,8 @@ const Sidebar = () => {
         setActiveIndex(curPath.length === 0 ? 0 : activeItem);
     }, [location]);
 
-    // Toggle submenu open/close
     const toggleSubmenu = (index: number) => {
-        setSubmenuOpen(submenuOpen === index ? null : index); // Close if the same menu is clicked again
+        setSubmenuOpen(submenuOpen === index ? null : index);
     };
 
     return (

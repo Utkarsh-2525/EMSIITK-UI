@@ -86,14 +86,6 @@ p {
     transition: margin-left 0.3s ease;
 }
 
-/*.with-sidebar {*/
-/*    margin-left: 100px; !* Adjust according to the sidebar's open width *!*/
-/*}*/
-
-/*.without-sidebar {*/
-/*    margin-left: 70px; !* Adjust according to the sidebar's collapsed width *!*/
-/*}*/
-
 .data {
     display: flex;
     justify-content: space-around;
@@ -108,6 +100,16 @@ p {
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+.card .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease; /* smooth transition effect */
+}
+
+/*.card .title:hover {*/
+/*    color: #f4e666; !* change this color for the hover effect *!*/
+/*}*/
 
 .icon {
     position: absolute;

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import './AttendanceTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
 import { useNavigate } from "react-router-dom";
+import ThemeContext from "../../store/themeContext";
 
 interface Attendance {
     id: number;
@@ -14,6 +15,7 @@ interface Attendance {
 const Attendance: React.FC = () => {
     const [employees, setEmployees] = useState<Attendance[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const ITEMS_PER_PAGE = 15;
@@ -76,7 +78,8 @@ const Attendance: React.FC = () => {
     }
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}></button>
             <table className="data-table">
                 <caption className='table-title'>Attendance of Employees</caption>
                 <thead>

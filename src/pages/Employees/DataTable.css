@@ -1,127 +1,66 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Keep the table aligned to the top */
-    min-height: 100vh;
-    flex-direction: column;
-    padding-top: 20px; /* Optional padding */
-    margin-left: 0px; /* Adjust this value according to the sidebar's width */
-    transition: margin-left 0.5s ease; /* Smooth transition when sidebar opens or closes */
-}
-
-.sidebar-collapsed ~ .container {
-    margin-left: 70px; /* Adjust this value according to the collapsed sidebar's width */
-}
-
-.data-table {
-    width: calc(100% - 250px); /* Adjust width based on sidebar width */
-    border-spacing: 0;
-    border-collapse: separate;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: width 0.5s ease; /* Smooth transition when sidebar opens or closes */
-}
-
-.sidebar-collapsed ~ .data-table {
-    width: calc(100% - 70px); /* Adjust based on the collapsed sidebar width */
-}
-
-
-h1 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    margin: 20px 0;
-}
-
-.column-id {
-    width: 200px; /* Custom width */
-}
-
-.loading, .error {
-    text-align: center;
-    font-size: 1.5rem;
-}
-
-.data-table {
-    width: 80%;
-    border-spacing: 0; /* Ensure no extra space around cells */
-    border-collapse: separate; /* Allow rounding of corners */
-    border-radius: 15px; /* Rounded corners for the entire table */
-    overflow: hidden; /* Ensure contents are clipped at rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-}
+/* Your existing styles here */
 
 .table-title {
     font-size: 1.75rem;
     font-weight: bold;
     color: #333;
     text-align: center;
-    margin-bottom: 10px;
-    padding: 10px 0;
-    background-color: #f8f9fa;
+    background-color: transparent; /* Set background to transparent */
 }
 
 .data-table th, .data-table td {
-    padding: 12px 15px;
+    /*padding: 12px 15px;*/
     text-align: left;
     border: 1px solid #ddd;
     transition: background-color 0.2s ease-in-out;
 }
 
-/* Header style */
-.data-table th {
-    background-color: #007BFF; /* Primary color (blue) */
-    color: white; /* White text */
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    border: none; /* No border for cleaner look */
+/* Dark mode styles */
+.dark .table-title {
+    color: white; /* Change title color to white in dark mode */
+    background: #1e2529 !important;
 }
 
-/* Row colors */
-.data-table tbody tr {
-    background-color: #f8f9fa; /* Light gray background for rows */
+.dark .data-table th {
+    background-color: #2a2a2a; /* Primary color (blue) */
+    color: white; /* White text for header */
 }
 
-.data-table tbody tr:nth-child(even) {
-    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+.dark .data-table tbody tr {
+    background-color: #2a2a2a; /* Dark gray for rows in dark mode */
 }
 
-/* Hover effect for rows */
-.data-table tbody tr:hover {
-    background-color: #d1ecf1; /* Light blue background on hover */
-    cursor: pointer;
+.dark .data-table tbody tr:nth-child(even) {
+    background-color: #3a3a3a; /* Slightly darker gray for alternating rows in dark mode */
 }
 
-/* Highlight selected row (optional feature) */
-.data-table tbody tr:active {
-    background-color: #c3e6cb; /* Greenish background for active row */
-    color: #155724; /* Dark green text */
+.dark .data-table tbody tr:hover {
+    background-color: #555; /* Dark hover effect */
 }
 
-/* Pagination container */
 .pagination-container {
     display: flex;
     justify-content: center;
     margin: 20px 0; /* Adjust as needed */
 }
 
-/* Optional: Style for pagination buttons */
 .pagination-container button {
     padding: 10px;
     margin: 0 5px;
     background-color: #007BFF;
-    color: white;
+    color: white; /* Button text color */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.pagination-container button:hover {
-    background-color: #0056b3;
+.dark .pagination-container button {
+    background-color: #444; /* Dark background for pagination buttons */
+    color: white; /* White text for pagination buttons */
+}
+
+.dark .pagination-container button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 @media (max-width: 768px) {

@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
+import ThemeContext from "../../store/themeContext";
 
 interface Employee {
     id: number;
     name: string;
     email: string;
     designation: string;
-    hire_status: number; // changed to number assuming it's returned as a number
+    hire_status: number;
 }
 
 const DataTable: React.FC = () => {
     const [employees, setEmployees] = useState<Employee[]>([]);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -27,7 +29,6 @@ const DataTable: React.FC = () => {
                     Authorization: 'Bearer ' + sessionStorage.getItem('token'),
                 },
             }).then(response => {
-                // Check if response.data.msg is an array, otherwise fallback to an empty array
                 const employeeData = Array.isArray(response.data.msg) ? response.data.msg : [];
                 setEmployees(employeeData);
                 setLoading(false);
@@ -60,7 +61,8 @@ const DataTable: React.FC = () => {
     }
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}></button>
             <table className="data-table">
                 <caption className='table-title'>Employees List</caption>
                 <thead>

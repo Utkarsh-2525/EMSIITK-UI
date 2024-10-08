@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import LoginContext from "../../store/loginContext";
 import langContextObj from "../../store/langContext";
 import { images } from "../../constants";
@@ -56,6 +56,23 @@ function LoginBox() {
             setErrorMessage(error.message || "Something went wrong. Please try again.");
         }
     }
+
+    // Handle "Enter" key press
+    useEffect(() => {
+        function handleKeyPress(event: KeyboardEvent) {
+            if (event.key === "Enter") {
+                loginHandler();
+            }
+        }
+
+        // Add event listener when the component is mounted
+        document.addEventListener("keydown", handleKeyPress);
+
+        // Cleanup event listener when the component is unmounted
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, []);
 
     return (
         <div className={`${classes.container} ${langCtx.lang === "fa" ? classes.rtl : ""}`}>

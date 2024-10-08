@@ -6,6 +6,7 @@ import {SidebarProvider} from "./store/sidebarContext";
 import {ThemeContextProvider} from "./store/themeContext";
 import {LoginContextProvider} from "./store/loginContext";
 import {DevSupport} from "@react-buddy/ide-toolbox";
+import ActiveEmployees from "./pages/Employees/ActiveEmployees";
 
 ReactDOM.render(
     <LangContextProvider>
