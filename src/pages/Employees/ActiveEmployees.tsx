@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
-import {Icon} from "@iconify/react";
-import {useNavigate} from "react-router-dom";
+import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 interface Employee {
     id: number;
@@ -113,7 +113,7 @@ const DataTable: React.FC = () => {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Designation</th>
-                    <th className="column-id">Edit</th>
+                    <th className="column-id">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -124,18 +124,25 @@ const DataTable: React.FC = () => {
                         <td>{employee.email}</td>
                         <td>{employee.designation}</td>
                         <td>
-                            <button onClick={() => handleEditClick(employee.id)}>
-                                <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px" style={{ color: 'black' }} />
+                            <button
+                                onClick={() => handleEditClick(employee.id)}
+                                style={{background: 'transparent', border: 'none', cursor: 'pointer', marginRight: '10px'}}
+                                title="Edit">
+                                <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px"
+                                      style={{color: 'black'}}/>
                             </button>
-                            <button onClick={() => RevokeAccess(employee.id)}>
-                                <Icon icon="lets-icons:remove-fill" width="27px" height="27px" style={{ color: 'red' }} />
+                            <button
+                                onClick={() => RevokeAccess(employee.id)}
+                                style={{background: 'transparent', border: 'none', cursor: 'pointer'}}
+                                title="Revoke Access">
+                                <Icon icon="lets-icons:remove-fill" width="27px" height="27px" style={{color: 'red'}}/>
                             </button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </div>
     );
 };

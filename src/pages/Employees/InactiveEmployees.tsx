@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './DataTable.css';
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
-import Pagination from "../../components/Pagination/Pagination";
+import LoadingSpinner from '../../components/UI/loadingSpinner/LoadingSpinner';
+import Pagination from '../../components/Pagination/Pagination';
+import { Icon } from '@iconify/react';
 
 interface Employee {
     id: number;
@@ -18,30 +19,55 @@ const DataTable: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const ITEMS_PER_PAGE = 15;
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    const fetchEmployees = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${API_URL}/Admin/Fetch/EMP_INACTIVE`, {
+                headers: {
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            });
+            setEmployees(response.data.msg);
+            setLoading(false);
+        } catch (err) {
+            setError('Error fetching employees.');
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const sendToken = async () => {
-            let API_URL = process.env.REACT_APP_API_URL;
-            axios.get(`${API_URL}/Admin/Fetch/EMP_INACTIVE`, {
-                headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
-                },
-            }).then(response => {
-                setEmployees(response.data.msg);
-                setLoading(false);
-            }).
-            catch(err => {
-                setError(err);
-                setLoading(false);
-            })
-        }
-        sendToken();
+        fetchEmployees();
     }, []);
+
+    const GiveAccess = async (id: number) => {
+        try {
+            const response = await axios.post(
+                `${API_URL}/Admin/Routes/SET_HIRE_STATUS`,
+                { id },
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (response.data.error === '0') {
+                console.log('Status updated successfully');
+                fetchEmployees(); // Refetch the employees after status update
+            } else {
+                console.error('Error updating status:', response.data.msg);
+            }
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
 
     // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-    //@ts-ignore
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
 
     // Change page
@@ -52,7 +78,7 @@ const DataTable: React.FC = () => {
     };
 
     if (loading) {
-        return (<LoadingSpinner/>);
+        return <LoadingSpinner />;
     }
 
     if (error) {
@@ -62,29 +88,39 @@ const DataTable: React.FC = () => {
     return (
         <div className="container">
             <table className="data-table">
-                <caption className='table-title'>Inactive Employees</caption>
+                <caption className="table-title">Inactive Employees</caption>
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Designation</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {employees.map((employee) => (
+                {currentItems.map((employee) => (
                     <tr key={employee.id}>
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
                         <td>{employee.designation}</td>
+                        <td>
+                            <button onClick={() => GiveAccess(employee.id)}
+                                style={{
+                                    background: 'transparent',
+                                    border: 'none',
+                                    cursor: 'pointer'
+                                }}
+                                      title="Approve Request">
+                                <Icon icon="dashicons:yes" width="27px" height="27px"/>
+                            </button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}/>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </div>
     );
 };

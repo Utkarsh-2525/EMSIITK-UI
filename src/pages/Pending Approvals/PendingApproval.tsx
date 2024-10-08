@@ -33,7 +33,7 @@ const DataTable: React.FC = () => {
                 },
             });
             setEmployees(response.data.msg);
-            setError(null);  // Reset the error on success
+            setError(null);
         } catch (err) {
             setError('Error fetching employee data');
         } finally {

@@ -49,8 +49,6 @@ const Attendance: React.FC = () => {
                     },
                 }
             );
-
-            // Now, navigate to the ViewAttendance component and pass the fetched attendance data as state
             navigate(`/employee/attendance/${employeeId}`, { state: { attendanceData: response.data.msg } });
         } catch (error) {
             console.error('There was an error!', error);

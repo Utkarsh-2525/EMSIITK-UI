@@ -8,20 +8,8 @@ interface Employee {
     id: number;
     name: string;
     email: string;
-    password: string;
-    apply_date: string;
-    dob: number;
     designation: string;
-    salary: number;
-    total_leave: number;
-    approved_leave: number;
-    bank_name: string;
-    bank_acc_no: string;
-    ifsc_code: string;
-    hire_status: string;
-    email_verify: string;
-    photo: string;
-    aadhar: string;
+    hire_status: number; // changed to number assuming it's returned as a number
 }
 
 const DataTable: React.FC = () => {
@@ -36,20 +24,20 @@ const DataTable: React.FC = () => {
         const sendToken = async () => {
             axios.get(`${API_URL}/Admin/Fetch/ALL_EMP`, {
                 headers: {
-                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token'),
                 },
             }).then(response => {
-                // Check if response.data.msg is an array, otherwise fallback to empty array
+                // Check if response.data.msg is an array, otherwise fallback to an empty array
                 const employeeData = Array.isArray(response.data.msg) ? response.data.msg : [];
                 setEmployees(employeeData);
                 setLoading(false);
             }).catch(err => {
                 setError(err.message || 'An error occurred');
                 setLoading(false);
-            })
-        }
+            });
+        };
         sendToken();
-    }, []);
+    }, [API_URL]);
 
     // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
@@ -80,9 +68,7 @@ const DataTable: React.FC = () => {
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>DOB</th>
                     <th>Designation</th>
-                    <th>Salary</th>
                     <th>Hire Status</th>
                 </tr>
                 </thead>
@@ -92,12 +78,10 @@ const DataTable: React.FC = () => {
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
-                        <td>{new Date(employee.dob).toLocaleDateString()}</td>
                         <td>{employee.designation}</td>
-                        <td>{employee.salary}</td>
                         <td>
-                                <span style={{ color: employee.hire_status ? 'green' : 'red' }}>
-                                    {employee.hire_status ? "Active" : "Inactive"}
+                                <span style={{ color: employee.hire_status === 1 ? 'green' : employee.hire_status === 3 ? 'red' : 'black' }}>
+                                    {employee.hire_status === 1 ? "Active" : employee.hire_status === 3 ? "Inactive" : "Unknown"}
                                 </span>
                         </td>
                     </tr>

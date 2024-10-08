@@ -6,18 +6,13 @@ import {SidebarProvider} from "./store/sidebarContext";
 import {ThemeContextProvider} from "./store/themeContext";
 import {LoginContextProvider} from "./store/loginContext";
 import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "./dev";
 
 ReactDOM.render(
     <LangContextProvider>
         <LoginContextProvider>
             <ThemeContextProvider>
                 <SidebarProvider>
-                    <DevSupport ComponentPreviews={ComponentPreviews}
-                                useInitialHook={useInitial}
-                    >
                         <App/>
-                    </DevSupport>
                 </SidebarProvider>
             </ThemeContextProvider>
         </LoginContextProvider>

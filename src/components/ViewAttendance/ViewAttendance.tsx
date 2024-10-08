@@ -15,8 +15,8 @@ interface Attendance {
 }
 
 const AttendanceTable: React.FC = () => {
-    const { employeeId } = useParams<{ employeeId: string }>();  // Get employeeId from URL params
-    const location = useLocation(); // Access location to get passed state
+    const { employeeId } = useParams<{ employeeId: string }>();
+    const location = useLocation();
     const [attendanceData, setAttendanceData] = useState<Attendance[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentMonthIndex, setCurrentMonthIndex] = useState<number>(0);
@@ -27,17 +27,18 @@ const AttendanceTable: React.FC = () => {
 
     useEffect(() => {
         if (location.state && location.state.attendanceData) {
-            setAttendanceData(location.state.attendanceData); // Use the passed attendance data
+            setAttendanceData(location.state.attendanceData);
             setLoading(false);
         }
     }, [location.state]);
 
     if (loading) {
-        return <LoadingSpinner />; // Show loading if data is not available
+        return <LoadingSpinner />;
     }
 
     if (!attendanceData.length) {
-        return <div>No attendance data available.</div>;
+        return <h4 style={{color: 'red', textAlign:'center', justifyContent: 'center'}}>
+            No attendance data available.</h4>;
     }
 
     // Extract the current month's data
