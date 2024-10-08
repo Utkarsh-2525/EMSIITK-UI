@@ -120,13 +120,18 @@ const AttendanceTable: React.FC = () => {
                             const attendanceStatus = day !== null ? currentMonthData[day] : undefined;
 
                             return (
-                                <td key={dayIndex} style={{verticalAlign: 'bottom', position: 'relative'}}>
-                                    {/* Only show attendance status if day exists */}
-                                    <div>{day !== null && attendanceStatus !== undefined ? (
-                                        attendanceStatus === 1 ? (
-                                            <Icon icon="lucide:check" style={{color: 'green'}}/>) : (<Icon icon="noto:cross-mark" style={{color: 'red'}}/>)) : ''}</div>
-
-                                    <div style={{position: 'absolute', bottom: '5px', right: '5px', fontSize: '0.8em', color: '#888'}}>
+                                <td key={dayIndex} style={{ verticalAlign: 'bottom', position: 'relative' }}>
+                                    <div>
+                                        {day !== null && attendanceStatus !== undefined ? (
+                                            attendanceStatus === 1 ? (
+                                                <Icon icon="lucide:check" style={{ color: 'green' }} />
+                                            ) : (
+                                                <Icon icon="noto:cross-mark" style={{ color: 'red' }} />
+                                            )
+                                        ) : ''}
+                                    </div>
+                                    <div
+                                        style={{position: 'absolute', bottom: '5px', right: '5px', fontSize: '0.8em', color: theme === 'dark' ? 'white' : '#888'}}>
                                         {dayOfMonth}
                                     </div>
                                 </td>

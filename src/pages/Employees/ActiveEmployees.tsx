@@ -79,8 +79,7 @@ const DataTable: React.FC = () => {
                 }
             );
             console.log(response.data);
-            // After revoking access, refresh the employee list
-            fetchEmployees(); // Call fetchEmployees again to reload the data
+            fetchEmployees();
         } catch (error) {
             console.error('There was an error!', error);
         }
@@ -107,7 +106,7 @@ const DataTable: React.FC = () => {
 
     return (
         <div className={`container ${theme}`}>
-            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}></button>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}> </button>
             <table className="data-table">
                 <caption className="table-title">Active Employees</caption>
                 <thead>
@@ -132,7 +131,7 @@ const DataTable: React.FC = () => {
                                 style={{background: 'transparent', border: 'none', cursor: 'pointer', marginRight: '10px'}}
                                 title="Edit">
                                 <Icon icon="bitcoin-icons:edit-outline" width="27px" height="27px"
-                                      style={{color: 'black'}}/>
+                                      style={{color : theme === 'dark' ? "yellow" : "black"}}/>
                             </button>
                             <button
                                 onClick={() => RevokeAccess(employee.id)}
