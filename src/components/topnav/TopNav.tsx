@@ -3,17 +3,18 @@ import { Icon } from "@iconify/react";
 import { useWindowSize } from "usehooks-ts";
 import TopNavRightBox from "./rightBox/TopNavRightBox";
 import SidebarContext from "../../store/sidebarContext";
-import ThemeContext from "../../store/themeContext"; // Import ThemeContext
+import ThemeContext from "../../store/themeContext";
 import classes from "./TopNav.module.scss";
 
 function TopNav() {
   const sideOpenCtx = useContext(SidebarContext);
   const { width } = useWindowSize();
-  const { theme } = useContext(ThemeContext); // Get the theme from context
+  const { theme } = useContext(ThemeContext);
 
   function openSidebarHandler() {
     sideOpenCtx.toggleSidebar();
-    if (width <= 768) document.body.classList.toggle("sidebar__open");
+    if (width <= 768)
+      document.body.classList.toggle("sidebar__open");
   }
 
   const notificationIconColor = theme === 'dark' ? 'white' : 'black';
@@ -28,13 +29,12 @@ function TopNav() {
             <div className="topNav_left_menu_open">
               <Icon icon="ci:menu-alt-03" width="24" />
             </div>
-
             <div className="topNav_left_menu_close">
               <Icon icon="eva:close-fill" width="24" />
             </div>
           </div>
         </div>
-        <Icon icon="mingcute:notification-line" style={{ color: notificationIconColor, height: '30px', width: '30px', alignItems: 'flex-end' }} />
+        <Icon icon="mingcute:notification-line" style={{color: notificationIconColor, height: '30px', width: '30px', alignItems: 'flex-end' }} />
         <TopNavRightBox />
       </div>
   );

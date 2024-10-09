@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import Pagination from '../../components/Pagination/Pagination'; // Ensure this path is correct
+import Pagination from '../../components/Pagination/Pagination';
 import './DataTable.css';
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner"; // Ensure this path is correct
+import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import ThemeContext from "../../store/themeContext";
 
 const ITEMS_PER_PAGE = 15;
 
@@ -10,6 +11,7 @@ const ProjectTable: React.FC = () => {
     // @ts-ignore
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const {theme, toggleTheme} = useContext(ThemeContext);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -49,7 +51,8 @@ const ProjectTable: React.FC = () => {
     };
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}/>
             <table className="project-table">
                 <caption className="table-title">Ongoing Projects</caption>
                 <thead>

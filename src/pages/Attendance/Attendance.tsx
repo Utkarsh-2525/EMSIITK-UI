@@ -57,12 +57,14 @@ const Attendance: React.FC = () => {
         }
     };
 
-    // Get current items for the page
+    // Update: Pass employee ID to the MarkAttendance page via route parameter
+    const MarkAttendance = (id: number) => {
+        navigate(`/Mark_Attendance/${id}`); // Route with employee ID as param
+    }
+
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
-
-    // Change page
     const totalPages = Math.ceil(employees.length / ITEMS_PER_PAGE);
 
     const handlePageChange = (page: number) => {
@@ -72,14 +74,13 @@ const Attendance: React.FC = () => {
     if (loading) {
         return <LoadingSpinner />;
     }
-
     if (error) {
         return <div className="error">{error}</div>;
     }
 
     return (
         <div className={`container ${theme}`}>
-            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}></button>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}> </button>
             <table className="data-table">
                 <caption className='table-title'>Attendance of Employees</caption>
                 <thead>
@@ -91,23 +92,21 @@ const Attendance: React.FC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {employees.map((employee) => (
+                {currentItems.map((employee) => (
                     <tr key={employee.id}>
                         <td>{employee.id}</td>
                         <td>{employee.name}</td>
                         <td>{employee.email}</td>
                         <td>
                             <button type="button" onClick={() => ViewAttendance(employee.id)}>View</button>
+                            <button onClick={() => MarkAttendance(employee.id)} style={{background: '#08a80f',
+                                color: 'white'}}>Mark</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </div>
     );
 };

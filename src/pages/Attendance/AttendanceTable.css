@@ -24,16 +24,16 @@ button {
 button[type="button"] {
     background-color: #3d91ef;
     color: white;
+    margin-right: 15px;
 }
-/* Data Table Styling */
 .data-table {
-    width: 80%;  /* Width of the table */
-    border-spacing: 0;  /* No extra space around cells */
-    border-collapse: separate;  /* Allow rounding of corners */
-    border-radius: 15px;  /* Rounded corners for the entire table */
-    overflow: hidden;  /* Clip content at rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
-    background-color: #fff;  /* White background */
+    width: 80%;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
 /* Table Caption Style */

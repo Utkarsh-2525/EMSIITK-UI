@@ -125,7 +125,6 @@ const EmployeeDetails: React.FC = () => {
                     <p><strong>IFSC Code:</strong> {employee.ifsc_code}</p>
                     <div className="button-row">
                         <button type="button" onClick={handleEditClick}>Edit</button>
-                        {/* Edit button */}
                     </div>
                 </div>
             ) : (

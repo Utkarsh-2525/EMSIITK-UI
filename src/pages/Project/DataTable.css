@@ -10,16 +10,19 @@
     text-align: center;
     font-size: 1.5rem;
 }
+
+/* Title Style */
 .table-title {
     font-size: 1.75rem;
     font-weight: bold;
-    color: #333;
+    color: #333; /* Change to a lighter color for dark mode */
     text-align: center;
     margin-bottom: 10px;
     padding: 10px 0;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Change for dark mode */
 }
 
+/* Table Style */
 .project-table {
     width: 80%;
     border-spacing: 0;
@@ -27,54 +30,54 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-height: 300px; /* Adjust as needed to prevent collapsing */
+    min-height: 300px;
 }
 
 .project-table tbody tr {
-    background-color: #f8f9fa; /* Light gray background for rows */
-    height: 60px; /* Ensure a minimum height for each row */
+    background-color: #f8f9fa;
+    height: 60px;
+    color: #333;
 }
 
 .project-table tbody tr:nth-child(even) {
-    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+    background-color: #e9ecef;
 }
 
-/* Adjustments for table content */
+.dark .project-table tbody tr {
+    background-color: #2b2b2b;
+    color: #f8f9fa;
+}
+
+.dark .project-table tbody tr:nth-child(even) {
+    background-color: #3b3b3b;
+}
+
 .project-table th, .project-table td {
     padding: 12px 15px;
     text-align: left;
     border: 1px solid #ddd;
     transition: background-color 0.2s ease-in-out;
-    vertical-align: middle; /* Align text vertically in the middle */
+    vertical-align: middle;
 }
 
-/* Header style */
 .project-table th {
-    background-color: #007BFF;  /* Primary color (blue) */
-    color: white;               /* White text */
+    background-color: #007BFF;
+    color: white;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-    border: none; /* No border for cleaner look */
+    border: none;
 }
 
-/* Row colors */
-.project-table tbody tr {
-    background-color: #f8f9fa; /* Light gray background for rows */
-    min-height: 200px;
-}
-
-.project-table tbody tr:nth-child(even) {
-    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
-}
-
-/* Hover effect for rows */
 .project-table tbody tr:hover {
-    background-color: #d1ecf1; /* Light blue background on hover */
+    background-color: #d1ecf1;
     cursor: pointer;
 }
 
-/* Status box styles */
+.dark .project-table tbody tr:hover {
+    background-color: #555;
+}
+
 .project-status {
     display: inline-block;
     padding: 5px 10px;
@@ -82,20 +85,19 @@
     color: white;
     font-weight: bold;
     text-align: center;
-    min-width: 80px; /* Minimum width for consistent box size */
+    min-width: 80px;
 }
 
-/* Status color classes */
 .status-completed {
-    background-color: #28a745; /* Green for completed */
+    background-color: #28a745;
 }
 
 .status-in-progress {
-    background-color: #f11c1c; /* Yellow for in-progress */
+    background-color: #f11c1c;
 }
 
 .status-on-hold {
-    background-color: #fa851f; /* Red for on-hold */
+    background-color: #fa851f;
 }
 
 @media (max-width: 768px) {

@@ -13,6 +13,7 @@ import EditEmployeeDetails from "./components/edit/Edit Employee/EditEmployee";
 import SignUp from "./pages/SignUp";
 import PendingApproval from "./pages/Pending Approvals/PendingApproval";
 import ViewAttendance from "./components/ViewAttendance/ViewAttendance";
+import MarkAttendance from "./components/MarkAttendance/MarkAttendance";
 
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Projects = React.lazy(() => import("./pages/Project/ProjectTable"));
@@ -57,9 +58,10 @@ function App() {
                                 <Route path="employee/:id" element={<EditEmployee />} />
                                 <Route path="projects" element={<Projects />} />
                                 <Route path="/employee/details" element={<EmployeeDetails />} />
-                                <Route path="/employee/attendance/:employeeId" element={<ViewAttendance />} />
-                                <Route path="/EMP_EDIT_DETAILS" element={<EditEmployeeDetails />} />
                                 <Route path="attendance" element={<Attendance />} />
+                                <Route path="/employee/attendance/:employeeId" element={<ViewAttendance />} />
+                                <Route path="/Mark_Attendance/:id" element={<MarkAttendance />} />
+                                <Route path="/EMP_EDIT_DETAILS" element={<EditEmployeeDetails />} />
                                 <Route path="holidays" element={<Holidays />} />
                                 <Route path="/appr_pending" element={<PendingApproval />} />
                             </Route>

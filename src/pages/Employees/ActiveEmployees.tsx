@@ -106,7 +106,7 @@ const DataTable: React.FC = () => {
 
     return (
         <div className={`container ${theme}`}>
-            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}> </button>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}/>
             <table className="data-table">
                 <caption className="table-title">Active Employees</caption>
                 <thead>
