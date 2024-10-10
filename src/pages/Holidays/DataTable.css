@@ -1,10 +1,9 @@
-/* HolidayTable.css */
 .container {
     display: flex;
-    justify-content: center; /* Horizontally center the table */
-    align-items: center;     /* Vertically center the table */
-    min-height: 100vh;       /* Full-height container */
-    flex-direction: column;  /* Stack items vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .loading, .error {
@@ -14,11 +13,11 @@
 
 .holiday-table {
     width: 80%;
-    border-spacing: 0;      /* Ensure no extra space around cells */
-    border-collapse: separate; /* Allow rounding of corners */
-    border-radius: 15px;    /* Rounded corners for the entire table */
-    overflow: hidden;       /* Ensure contents are clipped at rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .table-title {
@@ -38,37 +37,34 @@
     transition: background-color 0.2s ease-in-out;
 }
 
-/* Header style */
 .holiday-table th {
-    background-color: #007BFF;  /* Primary color (blue) */
-    color: white;               /* White text */
+    background-color: #007BFF;
+    color: white;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-    border: none; /* No border for cleaner look */
+    border: none;
 }
 
-/* Row colors */
 .holiday-table tbody tr {
-    background-color: #f8f9fa; /* Light gray background for rows */
+    background-color: #f8f9fa;
 }
 
 .holiday-table tbody tr:nth-child(even) {
-    background-color: #e9ecef; /* Slightly darker gray for alternating rows */
+    background-color: #e9ecef;
 }
 
-/* Hover effect for rows */
 .holiday-table tbody tr:hover {
-    background-color: #d1ecf1; /* Light blue background on hover */
+    background-color: #d1ecf1;
     cursor: pointer;
 }
 
-/* Adjustments for table content */
+
 .holiday-table th, .holiday-table td {
     padding: 12px 15px;
     text-align: left;
     border: 1px solid #ddd;
-    vertical-align: middle; /* Align text vertically in the middle */
+    vertical-align: middle;
 }
 
 .no-data {

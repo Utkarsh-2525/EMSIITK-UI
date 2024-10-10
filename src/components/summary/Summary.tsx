@@ -76,9 +76,9 @@ export const Summary = () => {
 
             <ApexChart emp={data.emp} int={data.int} task={data.task} pend={data.pend} />
 
-            <div className="todo-list-container">
-                <TodoList />
-            </div>
+            {/*<div className="todo-list-container">*/}
+            {/*    <TodoList />*/}
+            {/*</div>*/}
         </div>
     );
 };

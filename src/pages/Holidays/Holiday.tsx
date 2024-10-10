@@ -1,12 +1,14 @@
 // src/components/HolidayTable.tsx
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './DataTable.css';
-import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner"; // Ensure this path is correct
+import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
+import ThemeContext from "../../store/themeContext"; // Ensure this path is correct
 
 const HolidayTable: React.FC = () => {
     // @ts-ignore
     const [holidays, setHolidays] = useState<Holiday[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -32,7 +34,8 @@ const HolidayTable: React.FC = () => {
     }
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}/>
             <table className="holiday-table">
                 <caption className="table-title">Holidays</caption>
                 <thead>

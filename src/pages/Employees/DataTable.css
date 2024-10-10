@@ -1,33 +1,29 @@
-/* Your existing styles here */
-
 .table-title {
     font-size: 1.75rem;
     font-weight: bold;
     color: #333;
     text-align: center;
-    background-color: transparent; /* Set background to transparent */
+    background-color: transparent;
 }
 
 .data-table th, .data-table td {
-    /*padding: 12px 15px;*/
     text-align: left;
     border: 1px solid #ddd;
     transition: background-color 0.2s ease-in-out;
 }
 
-/* Dark mode styles */
 .dark .table-title {
-    color: white; /* Change title color to white in dark mode */
+    color: white;
     background: #1e2529 !important;
 }
 
 .dark .data-table th {
-    background-color: #2a2a2a; /* Primary color (blue) */
-    color: white; /* White text for header */
+    background-color: #2a2a2a;
+    color: white;
 }
 
 .dark .data-table tbody tr {
-    background-color: #2a2a2a; /* Dark gray for rows in dark mode */
+    background-color: #2a2a2a;
 }
 
 .dark .data-table tbody tr:nth-child(even) {
@@ -41,14 +37,14 @@
 .pagination-container {
     display: flex;
     justify-content: center;
-    margin: 20px 0; /* Adjust as needed */
+    margin: 20px 0;
 }
 
 .pagination-container button {
     padding: 10px;
     margin: 0 5px;
     background-color: #007BFF;
-    color: white; /* Button text color */
+    color: white;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
