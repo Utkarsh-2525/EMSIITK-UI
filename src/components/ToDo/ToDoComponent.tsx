@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
-import './style.css';  // Importing the CSS file
+import './style.css';
 
 interface Todo {
     id: number;
@@ -12,7 +12,6 @@ const TodoList: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [newTodo, setNewTodo] = useState<string>('');
 
-    // Function to add a new todo
     const addTodo = () => {
         if (newTodo.trim() === '') return;
         const newTodoItem: Todo = {
@@ -24,19 +23,16 @@ const TodoList: React.FC = () => {
         setNewTodo('');
     };
 
-    // Function to toggle completion of a todo
     const toggleTodo = (id: number) => {
         setTodos(todos.map(todo =>
             todo.id === id ? { ...todo, completed: !todo.completed } : todo
         ));
     };
 
-    // Function to remove a todo
     const removeTodo = (id: number) => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
 
-    // Function to handle key down event
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             addTodo();
@@ -68,7 +64,7 @@ const TodoList: React.FC = () => {
                     type="text"
                     value={newTodo}
                     onChange={e => setNewTodo(e.target.value)}
-                    onKeyDown={handleKeyDown}  // Listen for keydown event
+                    onKeyDown={handleKeyDown}
                     placeholder="Enter Todo..."
                 />
             </div>

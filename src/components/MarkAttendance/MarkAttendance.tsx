@@ -101,32 +101,60 @@ const MarkAttendance: React.FC = () => {
     }
 
     return (
-        <div className={`attendance-card ${theme}`}>
-            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}> </button>
-            <div className="attendance-card-header">
-                <h2 style={{color:'black',marginBottom:'10px'}}>Mark Attendance</h2>
-                <h2 style={{color:'black'}}>Employee ID: {id}</h2>
+        <div className={`attendance-card ${theme}`} style={{ padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            <button onClick={toggleTheme} style={{ background: 'transparent', border: 'none', cursor: 'none' }}> </button>
+            <div className="attendance-card-header" style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <h2 style={{ color: 'black', marginBottom: '10px' }}>Mark Attendance</h2>
+                <div className="employee-id" style={{ padding: '10px',color: 'black', borderRadius: '8px', display: 'inline-block', fontSize: '18px', fontWeight: 'bold' }}>
+                    Employee ID: {id}
+                </div>
             </div>
             <div className="attendance-card-body">
-                <p><strong>Address:</strong> {address || "Fetching address..."}</p>
+                <h2 style={{color: 'black', marginBottom: '10px', textAlign: 'center'}}>Address</h2>
+                <div className="employee-address" style={{
+                    padding: '10px',
+                    color: 'black',
+                    borderRadius: '8px',
+                    display: 'inline-block',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    marginBottom: '15px'
+                }}>
+                    {address || "Fetching address..."}
+                </div>
 
                 <div className="form-group">
-                    <label htmlFor="attendance-date" style={{color:'black'}}>Select Date:</label>
-                    <input type="date" id="attendance-date" className="form-control" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} style={{color:'black'}}/>
+                    <label htmlFor="attendance-date" style={{color: 'black'}}>Select Date:</label>
+                    <input type="date" id="attendance-date" className="form-control" value={selectedDate}
+                           onChange={(e) => setSelectedDate(e.target.value)} style={{color: 'black'}}/>
                 </div>
 
                 {location && <MapComponent latitude={location.latitude} longitude={location.longitude}/>}
 
-                <button style={{backgroundColor: status === 'present' ? 'green': 'red'}} type="button" className="btn-submit" onClick={HandleMarkAttendance} disabled={!location}>
+                <button
+                    style={{
+                        backgroundColor: status === 'present' ? 'green' : 'red',
+                        padding: '10px 20px',
+                        borderRadius: '5px',
+                        color: 'white',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginTop: '20px'
+                    }}
+                    type="button"
+                    className="btn-submit"
+                    onClick={HandleMarkAttendance}
+                    disabled={!location}
+                >
                     Mark {status === 'present' ? 'Present' : 'Absent'}
                 </button>
                 {successMessage && (
-                    <div style={{ color: 'green' }}>
+                    <div style={{color: 'green', marginTop: '10px'}}>
                         {successMessage}
                     </div>
                 )}
                 {errorMessage && (
-                    <div style={{ color: 'red' }}>
+                    <div style={{color: 'red', marginTop: '10px'}}>
                         {errorMessage}
                     </div>
                 )}

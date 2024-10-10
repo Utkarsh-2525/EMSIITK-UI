@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import './DataTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/Pagination/Pagination";
 import { Icon } from "@iconify/react";
+import ThemeContext from "../../store/themeContext";
 
 interface Employee {
     id: number;
@@ -18,12 +19,12 @@ interface Employee {
 const DataTable: React.FC = () => {
     const [employees, setEmployees] = useState<Employee[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const ITEMS_PER_PAGE = 15;
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // Fetch employee data from API
     const fetchEmployees = async () => {
         setLoading(false);
         try {
@@ -57,24 +58,18 @@ const DataTable: React.FC = () => {
                 }
             );
 
-            // If the response contains msg === 0, refresh the data
-            if (response.data.msg === "Status Updated Successfully" && response.data.error === "0") {
-                // Re-fetch employee data to refresh the table without page reload
+            if (response.data.msg === "Status Updated Successfully" && response.data.error === "0")
                 await fetchEmployees();
-            }
 
-            // console.log('API call response:', response.data);
         } catch (error) {
             console.error('There was an error!', error);
         }
     };
 
-    // Get current items for the page
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Change page
     const totalPages = Math.ceil(employees.length / ITEMS_PER_PAGE);
 
     const handlePageChange = (page: number) => {
@@ -90,7 +85,8 @@ const DataTable: React.FC = () => {
     }
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
+            <button onClick={toggleTheme} style={{background: 'transparent', border: 'none', cursor: 'none'}}/>
             <table className="data-table">
                 <caption className='table-title'>Pending Approvals</caption>
                 <thead>
@@ -109,7 +105,7 @@ const DataTable: React.FC = () => {
                         <td>{employee.email}</td>
                         <td>
                             <button onClick={() => ChangeStatus(employee.id)}>
-                                <Icon icon="dashicons:yes" width="27px" height="27px" style={{ color: 'green' }} />
+                                <Icon icon="dashicons:yes" width="27px" height="27px" style={{color: 'green'}}/>
                             </button>
                         </td>
                     </tr>

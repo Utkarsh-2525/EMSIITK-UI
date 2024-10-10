@@ -24,7 +24,6 @@ const DataTable: React.FC = () => {
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
 
-    // Function to fetch employees
     const fetchEmployees = async () => {
         setLoading(true);
         try {
@@ -41,12 +40,10 @@ const DataTable: React.FC = () => {
         }
     };
 
-    // Fetch employees when component mounts
     useEffect(() => {
         fetchEmployees();
     }, []);
 
-    // Handle edit click
     const handleEditClick = async (employeeId: number) => {
         try {
             const response = await axios.post(
@@ -66,7 +63,6 @@ const DataTable: React.FC = () => {
         }
     };
 
-    // Revoke access and refresh employee list
     const RevokeAccess = async (id: number) => {
         try {
             const response = await axios.post(`${API_URL}/Admin/Auth/REVOKE_ACCESS`,
@@ -85,7 +81,6 @@ const DataTable: React.FC = () => {
         }
     };
 
-    // Pagination logic
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
     const currentItems = employees.slice(indexOfFirstItem, indexOfLastItem);

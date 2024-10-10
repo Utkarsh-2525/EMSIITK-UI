@@ -19,10 +19,6 @@
     text-align: left;
 }
 
-.attendance-card-body p {
-    margin-bottom: 15px;
-}
-
 .form-group {
     margin-bottom: 15px;
 }
@@ -57,4 +53,28 @@
 
 .btn-submit:hover {
     background-color: #0056b3;
+}
+
+.success-message {
+    color: green;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+@media (max-width: 500px) {
+    .attendance-card {
+        padding: 15px;
+    }
+
+    .btn-submit {
+        padding: 8px 10px;
+    }
+
+    .employee-id, .employee-address {
+        font-size: 14px;
+    }
 }
