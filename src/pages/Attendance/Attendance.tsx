@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import './AttendanceTable.css';
 import LoadingSpinner from "../../components/UI/loadingSpinner/LoadingSpinner";
@@ -18,6 +18,7 @@ const Attendance: React.FC = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [activeEmployee, setActiveEmployee] = useState<number | null>(null); // State for submenu
     const ITEMS_PER_PAGE = 15;
     const navigate = useNavigate();
     const API_URL = process.env.REACT_APP_API_URL;
@@ -33,7 +34,7 @@ const Attendance: React.FC = () => {
                 setEmployees(response.data.msg);
                 setLoading(false);
             } catch (err) {
-                setError(err as string);
+                setError('Failed to fetch employees.');
                 setLoading(false);
             }
         };
@@ -57,10 +58,14 @@ const Attendance: React.FC = () => {
         }
     };
 
-    // Update: Pass employee ID to the MarkAttendance page via route parameter
-    const MarkAttendance = (id: number) => {
-        navigate(`/Mark_Attendance/${id}`); // Route with employee ID as param
-    }
+    const MarkAttendance = (id: number, status: string) => {
+        navigate(`/Mark_Attendance/${id}?status=${status}`);
+        setActiveEmployee(null);
+    };
+
+    const handleMarkClick = (employeeId: number) => {
+        setActiveEmployee(activeEmployee === employeeId ? null : employeeId);
+    };
 
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
     const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
@@ -99,14 +104,31 @@ const Attendance: React.FC = () => {
                         <td>{employee.email}</td>
                         <td>
                             <button type="button" onClick={() => ViewAttendance(employee.id)}>View</button>
-                            <button onClick={() => MarkAttendance(employee.id)} style={{background: '#08a80f',
-                                color: 'white'}}>Mark</button>
+                            <div style={{ position: 'relative', display: 'inline-block' }}>
+                                <button onClick={() => handleMarkClick(employee.id)} style={{background: '#968a06', color: 'white'}}>
+                                    Mark
+                                </button>
+                                {activeEmployee === employee.id && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '100%',
+                                        left: 0,
+                                        backgroundColor: 'white',
+                                        border: '1px solid #ddd',
+                                        boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
+                                        zIndex: 1
+                                    }}>
+                                        <button onClick={() => MarkAttendance(employee.id, 'present')} style={{background: '#08a80f', color: 'white', display: 'block', width: '100%'}}>Mark Present</button>
+                                        <button onClick={() => MarkAttendance(employee.id, 'absent')} style={{background: '#e74c3c', color: 'white', display: 'block', width: '100%'}}>Mark Absent</button>
+                                    </div>
+                                )}
+                            </div>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
     );
 };

@@ -116,7 +116,7 @@ const DataTable: React.FC = () => {
                                         border: 'none',
                                         cursor: 'pointer'
                                     }}
-                                    title="Approve Request">
+                                    title="Re-appoint Employee">
                                 <Icon icon="dashicons:yes" width="27px" height="27px"/>
                             </button>
                         </td>
